@@ -154,3 +154,5 @@ else
     systemctl start sisdominio
   fi
 fi
+
+systemctl start sisdominio
