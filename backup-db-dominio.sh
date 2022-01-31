@@ -79,7 +79,7 @@ function envia_para_storage () {
 function testa_conexao_ssh(){
   local endereco_ip="$1"
   local porta_ssh="$2"
-  echp "Testando conexão com o storage"
+  echo "Testando conexão com o storage"
 	# Comando retorna 0 (sucesso) caso consiga se conectar e outro valor caso não consiga
 	# Como só quero o código de retorno, mando todo o resto pro seu null
 	ssh -q -o StrictHostKeyChecking=no -o PubkeyAuthentication=yes -o PasswordAuthentication=no -o ConnectTimeout=10 -p "${porta_ssh}" root@"${endereco_ip}" "ls >/dev/null </dev/null"
@@ -88,7 +88,7 @@ function testa_conexao_ssh(){
 		echo "Conexao com o storage, de IP $endereco_ip funcional. Prosseguindo."
 		return 0
 	else
-		log "Não foi possivel conectar ao storage, de IP ${endereco_ip}. A cópia do backup não será realizada"
+		echo "Não foi possivel conectar ao storage, de IP ${endereco_ip}. A cópia do backup não será realizada"
 		return 1
 	fi
 	return 1
