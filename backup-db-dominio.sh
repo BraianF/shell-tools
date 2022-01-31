@@ -59,7 +59,7 @@ function compacta_arquivos () {
   while read -r instalacao; do
     echo "Efetuando o backup do banco de dados: $instalacao"
     pasta="${instalacao%/[cC]ontabil.db}"
-    tar -zcf "${pasta_backup}/dados_$(date +"%d-%m-%Y_%s").tar.gz" "$pasta"  > /dev/null 2>&1
+    tar -zcvf "${pasta_backup}/dados_$(date +"%d-%m-%Y_%s").tar.gz" "$pasta" #  > /dev/null 2>&1
   done < /opt/sybase/SYBSsa16/instalacao.txt
   echo 'Backup efetuado com sucesso!'
   
@@ -70,7 +70,7 @@ function compacta_arquivos () {
 
 function envia_para_storage () {
   if testa_conexao_ssh $ip_storage $porta_storage ; then
-    rsync -avhPu --delete -e "ssh -p $porta_storage" "$pasta_backup/" root@"${ip_storage}:${pasta_storage}"
+    rsync -avhPu --delete -e "ssh -p $porta_storage" "$pasta_backup/" root@"${ip_storage}:${pasta_storage}/"
     verificar_retorno "$?"
   fi
 }
